@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 
 export default function HomePage() {
-  const [hovered, setHovered] = useState(null);
+  const [hovered, setHovered] = useState(false);
   const [selectedIndustry, setSelectedIndustry] = useState(null);
 
   const industries = {
@@ -14,7 +14,12 @@ export default function HomePage() {
     environment: "Environmental Testing"
   };
 
-  const industryKeys = Object.keys(industries);
+  const icons = {
+    clinical: "/icons/clinical.png",
+    veterinary: "/icons/veterinary.png",
+    food: "/icons/food.png",
+    environment: "/icons/environment.png"
+  };
 
   return (
     <div className="font-sans text-gray-800 bg-white min-h-screen">
@@ -30,32 +35,45 @@ export default function HomePage() {
         </div>
       </nav>
 
-      {/* Minimalist Landing Section with Image and Animation */}
-      <section className="relative h-screen flex flex-col items-center justify-center bg-black">
-        <Image
-          src="/match-bg.jpg"
-          alt="Landing Background"
-          layout="fill"
-          objectFit="cover"
-          className="opacity-20 z-0"
-        />
+      {/* White Landing Section with Central Microplate and Icon Animation */}
+      <section className="relative h-screen flex flex-col items-center justify-center bg-white overflow-hidden">
         <motion.div
-          className="z-10 rounded-full bg-gradient-to-br from-cyan-500 to-blue-700 w-56 h-56 flex items-center justify-center relative group cursor-pointer shadow-2xl"
-          onMouseLeave={() => setHovered(null)}
+          className="relative w-48 h-48 cursor-pointer"
+          onHoverStart={() => setHovered(true)}
+          onHoverEnd={() => setHovered(false)}
         >
-          {industryKeys.map((key, index) => (
+          <Image
+            src="/microplate.png"
+            alt="Microplate"
+            width={192}
+            height={192}
+            className="z-10 rounded-full"
+          />
+
+          {Object.entries(industries).map(([key, label], index) => (
             <motion.div
               key={key}
-              className="absolute text-white font-semibold text-center text-sm w-40"
-              initial={{ opacity: 0, y: 0 }}
-              animate={hovered === key ? { opacity: 1, y: -100 + index * 50 } : { opacity: 0 }}
-              onMouseEnter={() => setHovered(key)}
+              className="absolute flex flex-col items-center text-xs font-medium text-gray-700"
+              initial={{ opacity: 0, scale: 0 }}
+              animate={hovered ? {
+                opacity: 1,
+                scale: 1,
+                x: ["clinical", "veterinary", "food", "environment"][index] === "clinical" ? -100 :
+                   ["clinical", "veterinary", "food", "environment"][index] === "veterinary" ? 100 :
+                   ["clinical", "veterinary", "food", "environment"][index] === "food" ? -100 :
+                   100,
+                y: ["clinical", "veterinary", "food", "environment"][index] === "clinical" ? -100 :
+                   ["clinical", "veterinary", "food", "environment"][index] === "veterinary" ? -100 :
+                   ["clinical", "veterinary", "food", "environment"][index] === "food" ? 100 :
+                   100
+              } : { opacity: 0, scale: 0 } : { opacity: 0, scale: 0 }}
+              transition={{ duration: 0.5 }}
               onClick={() => setSelectedIndustry(key)}
             >
-              {industries[key]}
+              <Image src={icons[key]} alt={label} width={48} height={48} className="mb-1" />
+              {label}
             </motion.div>
           ))}
-          <div className="text-white font-bold text-lg text-center">MATCH<br />Microplate</div>
         </motion.div>
       </section>
 
