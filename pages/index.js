@@ -58,15 +58,11 @@ export default function HomePage() {
               animate={hovered ? {
                 opacity: 1,
                 scale: 1,
-                x: ["clinical", "veterinary", "food", "environment"][index] === "clinical" ? -100 :
-                   ["clinical", "veterinary", "food", "environment"][index] === "veterinary" ? 100 :
-                   ["clinical", "veterinary", "food", "environment"][index] === "food" ? -100 :
-                   100,
-                y: ["clinical", "veterinary", "food", "environment"][index] === "clinical" ? -100 :
-                   ["clinical", "veterinary", "food", "environment"][index] === "veterinary" ? -100 :
-                   ["clinical", "veterinary", "food", "environment"][index] === "food" ? 100 :
-                   100
-              } : { opacity: 0, scale: 0 } : { opacity: 0, scale: 0 }}
+                x: 
+                ["clinical", "veterinary", "food", "environment"][index] === "veterinary" ? -100 :
+                ["clinical", "veterinary", "food", "environment"][index] === "food" ? 100 :
+                100
+              } : { opacity: 0, scale: 0 }}
               transition={{ duration: 0.5 }}
               onClick={() => setSelectedIndustry(key)}
             >
