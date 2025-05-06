@@ -21,6 +21,13 @@ export default function HomePage() {
     environment: "/icons/environment.png"
   };
 
+  const branches = {
+    clinical: { x: -150, y: -150 },
+    veterinary: { x: 150, y: -150 },
+    food: { x: -150, y: 150 },
+    environment: { x: 150, y: 150 }
+  };
+
   return (
     <div className="font-sans text-gray-800 bg-white min-h-screen">
       {/* Nav */}
@@ -35,10 +42,10 @@ export default function HomePage() {
         </div>
       </nav>
 
-      {/* White Landing Section with Central Microplate and Icon Animation */}
+      {/* Landing Section */}
       <section className="relative h-screen flex flex-col items-center justify-center bg-white overflow-hidden">
         <motion.div
-          className="relative w-48 h-48 cursor-pointer"
+          className="relative w-48 h-48 cursor-pointer z-10"
           onHoverStart={() => setHovered(true)}
           onHoverEnd={() => setHovered(false)}
         >
@@ -50,7 +57,7 @@ export default function HomePage() {
             className="z-10 rounded-full"
           />
 
-          {Object.entries(industries).map(([key, label], index) => (
+          {Object.entries(industries).map(([key, label]) => (
             <motion.div
               key={key}
               className="absolute flex flex-col items-center text-xs font-medium text-gray-700"
@@ -58,14 +65,13 @@ export default function HomePage() {
               animate={hovered ? {
                 opacity: 1,
                 scale: 1,
-                x: 
-                ["clinical", "veterinary", "food", "environment"][index] === "veterinary" ? -100 :
-                ["clinical", "veterinary", "food", "environment"][index] === "food" ? 100 :
-                100
+                x: branches[key].x,
+                y: branches[key].y
               } : { opacity: 0, scale: 0 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.6, type: "spring", stiffness: 120 }}
               onClick={() => setSelectedIndustry(key)}
             >
+              <motion.div className="w-1 h-24 bg-blue-300 rounded-full" initial={{ scaleY: 0 }} animate={hovered ? { scaleY: 1 } : { scaleY: 0 }} transition={{ duration: 0.5 }}></motion.div>
               <Image src={icons[key]} alt={label} width={48} height={48} className="mb-1" />
               {label}
             </motion.div>
