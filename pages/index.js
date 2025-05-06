@@ -22,7 +22,11 @@ export default function HomePage() {
   };
 
   const branches = {
-    clinical: { x: -150, y: -150 },
+    clinical: { x: -200, y: -80 },
+    veterinary: { x: 200, y: -80 },
+    food: { x: -200, y: 80 },
+    environment: { x: 200, y: 80 }
+  },
     veterinary: { x: 150, y: -150 },
     food: { x: -150, y: 150 },
     environment: { x: 150, y: 150 }
@@ -60,7 +64,7 @@ export default function HomePage() {
           {Object.entries(industries).map(([key, label]) => (
             <motion.div
               key={key}
-              className="absolute flex flex-col items-center text-xs font-medium text-gray-700"
+              className=\"absolute flex flex-col items-center text-sm font-semibold text-blue-900\"
               initial={{ opacity: 0, scale: 0 }}
               animate={hovered ? {
                 opacity: 1,
@@ -71,7 +75,7 @@ export default function HomePage() {
               transition={{ duration: 0.6, type: "spring", stiffness: 120 }}
               onClick={() => setSelectedIndustry(key)}
             >
-              <motion.div className="w-1 h-24 bg-blue-300 rounded-full" initial={{ scaleY: 0 }} animate={hovered ? { scaleY: 1 } : { scaleY: 0 }} transition={{ duration: 0.5 }}></motion.div>
+              <motion.div className=\"w-0.5 h-16 bg-blue-400\" initial={{ scaleY: 0 }} animate={hovered ? { scaleY: 1 } : { scaleY: 0 }} transition={{ duration: 0.5 }}></motion.div>
               <Image src={icons[key]} alt={label} width={48} height={48} className="mb-1" />
               {label}
             </motion.div>
