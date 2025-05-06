@@ -21,20 +21,13 @@ export default function HomePage() {
     environment: "/icons/environment.png"
   };
 
-  const branches = {
-    clinical: { x: -200, y: -80 },
-    veterinary: { x: 200, y: -80 },
-    food: { x: -200, y: 80 },
-    environment: { x: 200, y: 80 }
-  };
-    veterinary: { x: 200, y: -80 },
-    food: { x: -200, y: 80 },
-    environment: { x: 200, y: 80 }
-  },
-    veterinary: { x: 150, y: -150 },
-    food: { x: -150, y: 150 },
-    environment: { x: 150, y: 150 }
-  };
+ const branches = {
+  clinical: { x: -200, y: -80 },
+  veterinary: { x: 200, y: -80 },
+  food: { x: -200, y: 80 },
+  environment: { x: 200, y: 80 }
+};
+
 
   return (
     <div className="font-sans text-gray-800 bg-white min-h-screen">
